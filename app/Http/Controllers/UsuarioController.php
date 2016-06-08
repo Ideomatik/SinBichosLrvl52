@@ -3,15 +3,19 @@
 namespace SinBichos\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 use Session;
 use Redirect;
 use SinBichos\Http\Requests;
+use SinBichos\Http\Requests\UserCreateRequest;
+use SinBichos\Http\Requests\UserUpdateRequest;
 
 use SinBichos\User;
 
 class UsuarioController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +24,7 @@ class UsuarioController extends Controller
     public function index()
     {
         //
-        $users = User::All();
+        $users = User::paginate(3);
         return view('usuario.index', compact('users'));
     }
 
@@ -41,14 +45,10 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         //
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => $request['password'],
-        ]);
+        User::create($request->all());
 
         Session::flash('message','Usuario agregado correctamente');
         return redirect::to('/usuario');
@@ -85,7 +85,7 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
         //
         $user = User::find($id);
@@ -104,5 +104,9 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         //
+        $user = User::find($id);
+        $user->delete();
+        Session::flash('message','Usuario eliminado correctamente');
+        return redirect::to('/usuario');
     }
 }

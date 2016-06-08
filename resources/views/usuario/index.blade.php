@@ -1,22 +1,15 @@
 @extends('layouts.admin')
+    @section('content')
+    @include('alerts.success')
 
-@section('content')
-
-    @if (Session::has('message'))
-
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            {{Session::get('message')}}
-        </div>
-
-    @endif
-
+    {{link_to_route('usuario.create', $title ='Agregar Usuario','', $attributes = ['class'=>'btn  btn-primary'])}}
+    <br> <br>
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Nombre</th>
             <th>Email</th>
-            <th></th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -24,12 +17,18 @@
         <tr>
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
-            <td>{{link_to_route('usuario.edit', $title ='Editar', $parameters = $user->id, $attributes = ['class'=>'btn  btn-primary'])}}</td>
+            <td>
+                {!! Form::open(['route'=>['usuario.destroy',$user->id],'method'=>'DELETE']) !!}
+                {{link_to_route('usuario.edit', $title ='Editar', $parameters = $user->id, $attributes = ['class'=>'btn  btn-primary left'])}}
+                {!! Form::submit('Eliminar',['class'=>'btn btn-danger left']) !!}
+                {!! Form::close() !!}
+            </td>
         </tr>
  @endforeach
         </tbody>
     </table>
 
+{!! $users->render() !!}
 
         <br>
         <br>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -51,7 +51,18 @@
                     </div>
                     <!-- fin busqueda -->
                     <ul class="nav navbar-nav">
-
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                {!!Auth::user()->name!!} <span class="caret"></span></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ajustes</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="{!!URL::to('/logout')!!}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><span class="icon-v-card"></span> Clientes <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
@@ -68,7 +79,7 @@
                                 Herramientas <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="inicio.php?page=11"> <span class="icon-edit"></span> Gestión de Usuarios</a></li>
+                                <li><a href="{!!URL::to('/usuario')!!}"> <span class="icon-edit"></span> Gestión de Usuarios</a></li>
                                 <li><a href="inicio.php?page=10"> <span class="icon-edit"></span> Gestión de Operarios</a></li>
                                 <li><a href="inicio.php?page=12"> <span class="icon-edit"></span> Gestión de Plagas</a></li>
                                 <li><a href="inicio.php?page=13"> <span class="icon-edit"></span> Gestión de Materiales</a></li>
@@ -98,7 +109,7 @@
                                 <li><a href="https://drive.google.com/folderview?id=0B5pwWF42xPefMC13anB6NDBqRnc&usp=sharing" target="_blank"> <span class="icon-link"></span> NUBE Miguel</a></li>
                             </ul>
 
-                        <li><a href="#"><span class="icon-remove-user"></span> Cerrar Sesion</a></li>
+                        <li><a href="/logout"><span class="icon-remove-user"></span> Cerrar Sesion ({!!Auth::user()->name!!})</a></li>
                         <li><a href="https://icomoon.io/app/#/select/font"><span class="icon-link"></span> icon</a></li>
 
 
